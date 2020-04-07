@@ -15,16 +15,20 @@ function startProgram() {
 
 function makeObstacle() {
     if (createGameBoard.objPerSecond % 20 == 0) { // khởi tạo obstackle
-        let x_pos = Math.floor(Math.random() * (createGameBoard.canvas.width) - 50)
+        let x_pos = Math.floor(Math.random() * (createGameBoard.canvas.width) - 50);
+        let stable;
         //chọn ảnh cho obstackle
         if (Math.floor(Math.sqrt(createGameBoard.objPerSecond)) % 2 == 0) {
             cube_image = 'cubes_yellow.png';
+            stab=1;
         } else if (Math.floor(Math.sqrt(createGameBoard.objPerSecond)) % 3 == 0) {
             cube_image = 'cubes_green.png';
+            stab=3
         } else {
             cube_image = 'cubes_pink.png';
+            stab=2
         }
-        theObstacles.push(new spaceObstacle(cube_image, x_pos, 10, 50, 50));
+        theObstacles.push(new spaceObstacle(cube_image, x_pos, 10, 50, 50,stab));
         createGameBoard.objPerSecond++;
 
     } else {
@@ -67,6 +71,22 @@ function gameOver(){
         }
     }
 }
+function destroyObstacle(){
+    for(let i=0;i<theObstacles.length;i++){
+        for(let j=0;j<gun.length;j++){
+            if(theObstacles[i].collisionOtherObject(gun[j]) ==false){
+
+                if(theObstacles[i].stable  > 1){
+                    theObstacles[i].stable--;
+                }else{
+                    theObstacles[i].clearObstacle();
+                }
+
+                gun[j].clearGun();
+            }
+        }
+    }
+}
 function updateProgram() {
     createGameBoard.clearCanvas(); // xóa image cũ để update image mới
 
@@ -84,16 +104,10 @@ function updateProgram() {
     makeGun();
     makeMultiGun();
 
+    destroyObstacle();
     gameOver();
 
-    for(let i=0;i<theObstacles.length;i++){
-        for(let j=0;j<gun.length;j++){
-            if(theObstacles[i].collisionOtherObject(gun[j]) ==false){
-                theObstacles[i].clearObstacle();
-                gun[j].clearGun();
-            }
-        }
-    }
+
 
 }
 
