@@ -80,10 +80,28 @@ function updateProgram(){
 
     myShip.speedX=0;  // đặt speedx =0
     myShip.speedY =0;  // đặt speedy =0
-    if(createGameBoard.keys && createGameBoard.keys[39]) {myShip.speedX = createGameBoard.baseSeed;} // di phai
-     if(createGameBoard.keys && createGameBoard.keys[38]) {myShip.speedY = -createGameBoard.baseSeed;} // di tren
-     if(createGameBoard.keys && createGameBoard.keys[40]) {myShip.speedY = +createGameBoard.baseSeed;}// di duoi
-     if(createGameBoard.keys && createGameBoard.keys[37]) {myShip.speedX = -createGameBoard.baseSeed;}// di trai
+    if(createGameBoard.keys && createGameBoard.keys[39]) {
+        console.log("chiều dài của canvas:"+ createGameBoard.canvas.width);
+        if(myShip.x < 910){
+            myShip.speedX = createGameBoard.baseSeed;
+        }
+    } // di phai
+     if(createGameBoard.keys && createGameBoard.keys[38]) {
+         if(myShip.y > 380){
+             myShip.speedY = -createGameBoard.baseSeed;
+         }
+     } // di tren
+     if(createGameBoard.keys && createGameBoard.keys[40]) {
+         if(myShip.y < 650){
+             myShip.speedY = +createGameBoard.baseSeed;
+         }
+     }// di duoi
+     if(createGameBoard.keys && createGameBoard.keys[37]) {
+
+         if(myShip.x > 1){
+             myShip.speedX = -createGameBoard.baseSeed;
+         }
+     }// di trai
 
 
 
@@ -97,7 +115,8 @@ function updateProgram(){
         }else{
             setTimeout(function(){
                 count_gun =0;
-            },2000);
+                gun = [];
+            },1000);
         }
 
 
