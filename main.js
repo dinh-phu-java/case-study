@@ -14,7 +14,7 @@ function startProgram() {
 }
 
 function makeObstacle() {
-    if (createGameBoard.objPerSecond % 50 == 0) { // khởi tạo obstackle
+    if (createGameBoard.objPerSecond % 20 == 0) { // khởi tạo obstackle
         let x_pos = Math.floor(Math.random() * (createGameBoard.canvas.width) - 50)
         //chọn ảnh cho obstackle
         if (Math.floor(Math.sqrt(createGameBoard.objPerSecond)) % 2 == 0) {
@@ -59,7 +59,14 @@ function makeMultiGun(){
         gun[i].gunThrough();// bắn gun
     }
 }
-
+function gameOver(){
+    for (let i =0; i<theObstacles.length;i++){
+        if(myShip.collisionOtherObject(theObstacles[i])==false){
+            createGameBoard.stopGame();
+            alert("GAME OVER");
+        }
+    }
+}
 function updateProgram() {
     createGameBoard.clearCanvas(); // xóa image cũ để update image mới
 
@@ -77,7 +84,16 @@ function updateProgram() {
     makeGun();
     makeMultiGun();
 
+    gameOver();
 
+    for(let i=0;i<theObstacles.length;i++){
+        for(let j=0;j<gun.length;j++){
+            if(theObstacles[i].collisionOtherObject(gun[j]) ==false){
+                theObstacles[i].clearObstacle();
+                gun[j].clearGun();
+            }
+        }
+    }
 
 }
 

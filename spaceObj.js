@@ -39,7 +39,19 @@ let spaceObj = function(img_src,x,y,width,height){
             }
         }
     }
-
-
-
+    this.collisionOtherObject=function(otherObject){
+        let myLeft= this.x+10;
+        let myRight= this.x+this.width-10;
+        let myTop= this.y+20;
+        let myBottom= this.y+this.height-16;
+        let otherLeft = otherObject.x;
+        let otherRight= otherObject.x+otherObject.width;
+        let otherTop=otherObject.y;
+        let otherBottom=otherObject.y+otherObject.height;
+        let collision=false;
+        if(myLeft > otherRight || myTop > otherBottom || myRight < otherLeft || myBottom  < otherTop){
+            collision=true;
+        }
+        return collision;
+    }
 }
