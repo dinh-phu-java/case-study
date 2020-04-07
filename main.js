@@ -2,31 +2,42 @@ let myShip; // myShip
 let gun = [];
 let count_gun = 0;
 let theObstacles = [];
-let reset_gun = false;
+let enemySpace=[];
+let enemyGun;
 let cube_image = 'cubes_green.png';
+
 
 function startProgram() {
 
     createGameBoard.makeCanvas(); // tạo canvas
     myShip = new spaceObj('spaceship.png', createGameBoard.mid_screen, createGameBoard.bottom_screen, 50, 50); // khởi tạo đối tượng tàu
     myShip.createObj(); // vẽ tàu
+    makeEnemyShip();
+}
+function makeEnemyShip(){
+    for (let i =0 ;i <createGameBoard.baseEnemyShip ; i++){
 
+        enemySpace.push(new enemyShip('enemyship.png',10+ (10*i),10,50,50));
+    }
+    for (let i=0;i<createGameBoard.baseEnemyShip;i++){
+        enemySpace[i].createObj();
+    }
 }
 
 function makeObstacle() {
-    if (createGameBoard.objPerSecond % 20 == 0) { // khởi tạo obstackle
+    if (createGameBoard.objPerSecond % 10 === 0) { // khởi tạo obstackle
         let x_pos = Math.floor(Math.random() * (createGameBoard.canvas.width) - 50);
         let stable;
         //chọn ảnh cho obstackle
-        if (Math.floor(Math.sqrt(createGameBoard.objPerSecond)) % 2 == 0) {
+        if (Math.floor(Math.sqrt(createGameBoard.objPerSecond)) % 2 === 0) {
             cube_image = 'cubes_yellow.png';
-            stab=1;
-        } else if (Math.floor(Math.sqrt(createGameBoard.objPerSecond)) % 3 == 0) {
+            stab=3;
+        } else if (Math.floor(Math.sqrt(createGameBoard.objPerSecond)) % 3 === 0) {
             cube_image = 'cubes_green.png';
-            stab=3
+            stab=1;
         } else {
             cube_image = 'cubes_pink.png';
-            stab=2
+            stab=2;
         }
         theObstacles.push(new spaceObstacle(cube_image, x_pos, 10, 50, 50,stab));
         createGameBoard.objPerSecond++;
@@ -43,14 +54,14 @@ function makeMultiObstacles() {
     }
 }
 function makeGun(){
-    if (createGameBoard.shoot_gun == true) { //kiểm tra space có đc ấn
+    if (createGameBoard.shoot_gun === true) { //kiểm tra space có đc ấn
         if (count_gun < createGameBoard.gun_quantity) { //tối đa 3 viên đạn
             gun.push(new gunObj('gun.png', myShip.x + 10, myShip.y, 30, 25)); // tạo mảng gun
             createGameBoard.shoot_gun = false; // reset space key
             count_gun++;
         }
     }
-    if (count_gun == createGameBoard.gun_quantity) {
+    if (count_gun === createGameBoard.gun_quantity) {
         setTimeout(function () {
             count_gun = 0;
             gun = [];
@@ -72,7 +83,7 @@ function makeMultiGun(){
 }
 function gameOver(){
     for (let i =0; i<theObstacles.length;i++){
-        if(myShip.collisionOtherObject(theObstacles[i])==false){
+        if(myShip.collisionOtherObject(theObstacles[i])===false){
             createGameBoard.stopGame();
             alert("GAME OVER");
         }
@@ -81,7 +92,7 @@ function gameOver(){
 function destroyObstacle(){
     for(let i=0;i<theObstacles.length;i++){
         for(let j=0;j<gun.length;j++){
-            if(theObstacles[i].collisionOtherObject(gun[j]) ==false){
+            if(theObstacles[i].collisionOtherObject(gun[j]) ===false){
 
                 if(theObstacles[i].stable  > 1){
                     theObstacles[i].stable--;
@@ -102,8 +113,8 @@ function updateProgram() {
 
     myShip.move(); // di chuyển tàu
 
-    makeObstacle();
-    makeMultiObstacles();
+   // makeObstacle();
+   // makeMultiObstacles();
 
     myShip.updatePos(); // tạo vị trí mới cho tàu
     myShip.createObj();  // vẽ lại tàu
@@ -113,9 +124,15 @@ function updateProgram() {
 
     destroyObstacle(); //nếu bắn trúng thì xóa obstacle
     displayGunQuantity(); // hiên thị số đạn
+    //makeEnemyShip();
     gameOver();
 
+    enemySpace[0].randomMove();
+    enemySpace[0].createObj();
 
+
+
+    createGameBoard.objPerSecond++;
 
 }
 
