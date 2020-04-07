@@ -57,6 +57,13 @@ function makeGun(){
         }, 1000); // bắn xong 3 viên delay đạn 1s
     }
 }
+function displayGunQuantity(){
+    let ctx= createGameBoard.context;
+    ctx.fillStyle= "white";
+    ctx.font="18px Arial";
+    ctx.fillText("Bullet: "+(createGameBoard.gun_quantity-count_gun),0 ,createGameBoard.canvas.height-10);
+    ctx.stroke();
+}
 function makeMultiGun(){
     for (let i = 0; i < gun.length; i++) {
         gun[i].createObj(); //  bắn gun
@@ -93,7 +100,7 @@ function updateProgram() {
     myShip.speedX = 0;  // đặt speedx =0
     myShip.speedY = 0;  // đặt speedy =0
 
-    myShip.move();
+    myShip.move(); // di chuyển tàu
 
     makeObstacle();
     makeMultiObstacles();
@@ -104,7 +111,8 @@ function updateProgram() {
     makeGun();
     makeMultiGun();
 
-    destroyObstacle();
+    destroyObstacle(); //nếu bắn trúng thì xóa obstacle
+    displayGunQuantity(); // hiên thị số đạn
     gameOver();
 
 

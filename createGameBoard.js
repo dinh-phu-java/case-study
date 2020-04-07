@@ -9,7 +9,7 @@ let createGameBoard= {
         this.baseSeed=4; // tốc độ di chuyển cơ bản
         this.myShipSpeed=1;
         this.objPerSecond=20;
-        this.gun_quantity=4;
+        this.gun_quantity=5;
         document.body.appendChild(this.canvas); // gắn vào body
         this.interval= setInterval(updateProgram,10);  // set time out update cho screen;
         this.keyBoardEvent();
