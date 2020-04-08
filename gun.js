@@ -11,7 +11,7 @@ let gunObj= function(img_src,x,y,width,height){
         this.height=0;
     };
     this.gunDown=function(enemyObj){
-        this.y += (createGameBoard.baseSeed+createGameBoard.gameLevel);
+        this.y += (createGameBoard.baseSeed+createGameBoard.gameLevel+2);
         if(this.y >= createGameBoard.canvas.height){
             this.y = enemyObj.y;
             this.x= enemyObj.x;

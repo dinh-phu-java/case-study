@@ -13,8 +13,6 @@ function startProgram() {
     myShip = new spaceObj('spaceship.png', createGameBoard.mid_screen, createGameBoard.bottom_screen, 50, 50); // khởi tạo đối tượng tàu
     myShip.createObj(); // vẽ tàu
     makeEnemyShip();
-    // enemyGun = new gunObj('gun_red.png',enemySpace[0].x,enemySpace[0].y,30,25);
-    // enemyGun.createObj();
     makeEnemyGun();
 
 }
@@ -82,8 +80,14 @@ function makeGun(){
 function displayGunQuantity(){
     let ctx= createGameBoard.context;
     ctx.fillStyle= "white";
-    ctx.font="18px Arial";
-    ctx.fillText("Bullet: "+(createGameBoard.gun_quantity-count_gun),0 ,createGameBoard.canvas.height-10);
+    ctx.font="14px Arial";
+    ctx.fillText("Bullet: "+(createGameBoard.gun_quantity-count_gun),2 ,createGameBoard.canvas.height-10);
+    ctx.stroke();
+    ctx.fillText("Game Level: "+createGameBoard.gameLevel,2,createGameBoard.canvas.height - 30);
+    ctx.fillStyle="red";
+    ctx.font="14px Arial bold";
+    ctx.fillText("Heart 1: "+(enemySpace[0].stable+1),2,12);
+    ctx.fillText("Heart 2: "+(enemySpace[1].stable+1),2,32);
     ctx.stroke();
 }
 function makeMultiGun(){
@@ -104,17 +108,18 @@ function gameOver(){
     }
 if (checkOver==true){
 
-    gameOverText("Game Over");
+    gameOverText("Game Over",(createGameBoard.canvas.width/2) -250,100);
 
 }
 
 }
-function gameOverText(str){
+function gameOverText(str,x,y){
+
     setInterval(function(){
         let ctx = createGameBoard.context;
         ctx.fillStyle="yellow";
         ctx.font="100px Arial"
-        ctx.fillText(str,(createGameBoard.canvas.width/2) -250, createGameBoard.canvas.height/2);
+        ctx.fillText(str,x, y);
     },1);
 }
 function destroyObstacle(){
@@ -166,7 +171,8 @@ function updateProgram() {
                 if(enemySpace[j].collisionOtherObject(gun[i]) === false){
                     if(enemySpace[j].stable == 0){
                         enemySpace[j].removeEnemyShip();
-                        gun[i].clearGun();
+                       // gun[i].clearGun();
+                        enemyGun[j].clearGun();
                         createGameBoard.baseEnemyShip--;
                     }else{
                         enemySpace[j].stable--;
@@ -183,6 +189,7 @@ function updateProgram() {
        enemyGun[i].createObj();
        enemyGun[i].gunDown(enemySpace[i]);
     }
+
     for (let i=0;i<enemyGun.length;i++){
         if(myShip.collisionOtherObject(enemyGun[i]) == false){
             myShip.clearObj();
@@ -192,7 +199,9 @@ function updateProgram() {
     }
 
     if (createGameBoard.baseEnemyShip == 0){
-        gameOverText("You Win!");
+
+        gameOverText("You Win!",(createGameBoard.canvas.width/2) -250 ,createGameBoard.canvas.height/2);
+
     }
 
     //createGameBoard.objPerSecond++;
