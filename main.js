@@ -5,6 +5,7 @@ let theObstacles = [];
 let enemySpace=[];
 let enemyGun=[];
 let cube_image = 'cubes_green.png';
+let gun_sound=[];
 
 
 function startProgram() {
@@ -14,6 +15,8 @@ function startProgram() {
     myShip.createObj(); // vẽ tàu
     makeEnemyShip();
     makeEnemyGun();
+
+
 
 }
 function makeEnemyShip(){
@@ -66,6 +69,7 @@ function makeGun(){
     if (createGameBoard.shoot_gun === true) { //kiểm tra space có đc ấn
         if (count_gun < createGameBoard.gun_quantity) { //tối đa 3 viên đạn
             gun.push(new gunObj('gun.png', myShip.x + 10, myShip.y, 30, 25)); // tạo mảng gun
+            gun_sound.push( new sound('sound/gun_music1.mp3'));
             createGameBoard.shoot_gun = false; // reset space key
             count_gun++;
         }
@@ -75,6 +79,13 @@ function makeGun(){
             count_gun = 0;
             gun = [];
         }, 1000); // bắn xong 3 viên delay đạn 1s
+    }
+}
+function makeMultiGun(){
+    for (let i = 0; i < gun.length; i++) {
+        gun[i].createObj(); //  bắn gun
+        gun[i].gunThrough();// bắn gun
+        gun_sound[i].play();
     }
 }
 function displayGunQuantity(){
@@ -93,12 +104,7 @@ function displayGunQuantity(){
     }
 
 }
-function makeMultiGun(){
-    for (let i = 0; i < gun.length; i++) {
-        gun[i].createObj(); //  bắn gun
-        gun[i].gunThrough();// bắn gun
-    }
-}
+
 function gameOver(){
     let checkOver=false;
     for (let i =0; i<theObstacles.length;i++){
