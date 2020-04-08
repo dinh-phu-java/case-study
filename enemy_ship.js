@@ -1,5 +1,6 @@
-let enemyShip = function(img_src,x,y,width,height){
+let enemyShip = function(img_src,x,y,width,height,stable){
     spaceObj.apply(this,arguments);
+    this.stable=stable;
     this.randomMove= function(){
         this.rand_move=  Math.floor(Math.random()*(10)-10);
         this.rand_move_positive= Math.floor(Math.random()*(10));
@@ -10,17 +11,16 @@ let enemyShip = function(img_src,x,y,width,height){
                     this.speedY = +(this.rand_move);
             }
             this.updatePos();
-            console.log(this.speedY);
-            console.log(this.speedX);
-            console.log(createGameBoard.objPerSecond);
+
+
         }else{
             if(this.x>=createGameBoard.canvas.width-50){
                 this.speedX = -this.rand_move_positive;
-                //this.speedX = this.rand_move_positive;
+
             }
             if(this.x <= 10){
                 this.speedX = +this.rand_move_positive;
-                //this.speedX = this.rand_move_positive;
+
             }
             if(this.y >= (createGameBoard.canvas.width/2)-150){
                 this.speedY = -this.rand_move_positive;
@@ -31,11 +31,16 @@ let enemyShip = function(img_src,x,y,width,height){
 
             }
             this.updatePos();
-            console.log(this.speedY);
-            console.log(this.speedX);
+
         }
 
 
     };
+    this.removeEnemyShip = function(){
+        this.width=0;
+        this.height=0;
+        this.x=0;
+        this.y=0;
+    }
 
 }

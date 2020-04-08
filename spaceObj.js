@@ -53,5 +53,11 @@ let spaceObj = function(img_src,x,y,width,height){
             collision=true;
         }
         return collision;
+    };
+    this.clearObj= function(){
+        this.x=0;
+        this.y=0;
+        this.width=0;
+        this.height=0;
     }
 }

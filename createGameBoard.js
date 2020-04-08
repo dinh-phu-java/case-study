@@ -11,8 +11,8 @@ let createGameBoard= {
         this.objPerSecond=20;
         this.gun_quantity=3;
         this.baseEnemyShip= 3;
-        this.gameLevel=7;
-        this.enemyGun=1;
+        this.gameLevel=2;
+
         document.body.appendChild(this.canvas); // gắn vào body
         this.interval= setInterval(updateProgram,20);  // set time out update cho screen;
         this.keyBoardEvent();
