@@ -1,5 +1,6 @@
 let createGameBoard= {
     canvas: document.createElement("canvas"),
+    main : document.getElementById("main_tag"),
     makeCanvas(){
         this.canvas.width=720;  // canvas width
         this.canvas.height=700; // canvas height
@@ -13,7 +14,7 @@ let createGameBoard= {
         this.gameLevel=2;
         this.baseEnemyShip= 3;
 
-        document.body.appendChild(this.canvas); // gắn vào body
+        this.main.appendChild(this.canvas); // gắn vào body
         this.interval= setInterval(updateProgram,20);  // set time out update cho screen;
         this.keyBoardEvent();
 

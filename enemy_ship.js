@@ -39,8 +39,8 @@ let enemyShip = function(img_src,x,y,width,height,stable){
     this.removeEnemyShip = function(){
         this.width=0;
         this.height=0;
-        this.x=0;
-        this.y=0;
+        this.x=-2000;
+        this.y=-2000;
     }
 
 }

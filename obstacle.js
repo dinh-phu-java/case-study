@@ -5,7 +5,9 @@ let spaceObstacle= function(img_src, x, y, width, height,stable) {
         this.y += (createGameBoard.baseSeed+createGameBoard.gameLevel);
     };
     this.clearObstacle= function(){
-        this.x= -100;
-        this.y=-100;
+        this.x= -1000;
+        this.y=-1000;
+        this.width=0;
+        this.height=0;
     }
 }

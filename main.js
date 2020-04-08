@@ -194,7 +194,7 @@ function updateProgram() {
         if(myShip.collisionOtherObject(enemyGun[i]) == false){
             myShip.clearObj();
             enemyGun[i].clearGun();
-            gameOverText("Game Over");
+            gameOverText("Game Over",(createGameBoard.canvas.width/2) -250,100);
         }
     }
 
