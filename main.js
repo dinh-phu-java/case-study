@@ -69,7 +69,7 @@ function makeGun(){
     if (createGameBoard.shoot_gun === true) { //kiểm tra space có đc ấn
         if (count_gun < createGameBoard.gun_quantity) { //tối đa 3 viên đạn
             gun.push(new gunObj('gun.png', myShip.x + 10, myShip.y, 30, 25)); // tạo mảng gun
-            gun_sound.push( new sound('sound/gun_music1.mp3'));
+            //gun_sound.push( new sound('sound/gun_music1.mp3'));
             createGameBoard.shoot_gun = false; // reset space key
             count_gun++;
         }
@@ -85,7 +85,7 @@ function makeMultiGun(){
     for (let i = 0; i < gun.length; i++) {
         gun[i].createObj(); //  bắn gun
         gun[i].gunThrough();// bắn gun
-        gun_sound[i].play();
+        //gun_sound[i].play();
     }
 }
 function displayGunQuantity(){
@@ -230,6 +230,14 @@ let lv6= document.getElementById("lv6");
 let reload_page=document.getElementById("reload");
 createGameBoard.displayDefaultCanvas();
 
+function disableBtn(){
+    lv1.disabled=true;
+    lv2.disabled=true;
+    lv3.disabled=true;
+    lv4.disabled=true;
+    lv5.disabled=true;
+    lv6.disabled=true;
+}
 
 reload_page.onclick=function(){
     window.location.reload();
@@ -238,6 +246,7 @@ reload_page.onclick=function(){
 lv1.onclick=function(){
     this.blur();
     createGameBoard.gameLevel=1;
+    disableBtn();
     startProgram();
 
 };
@@ -247,6 +256,7 @@ lv1.onclick=function(){
 lv2.onclick=function(){
     this.blur();
         createGameBoard.gameLevel=2;
+    disableBtn();
         startProgram();
 
 };
@@ -254,23 +264,27 @@ lv3.onclick=function(){
     this.blur();
 
     createGameBoard.gameLevel=3;
+    disableBtn();
     startProgram();
 };
 lv4.onclick=function(){
     this.blur();
 
     createGameBoard.gameLevel=4;
+    disableBtn();
     startProgram();
 };
 lv5.onclick=function(){
     this.blur();
 
     createGameBoard.gameLevel=5;
+    disableBtn();
     startProgram();
 };
 lv6.onclick=function(){
     this.blur();
 
     createGameBoard.gameLevel=6;
+    disableBtn();
     startProgram();
 };
