@@ -21,7 +21,7 @@ function startProgram() {
 function makeEnemyShip(){
     for (let i =0 ;i <createGameBoard.baseEnemyShip ; i++){
 
-        enemySpace.push(new enemyShip('enemyship.png',10+ (10*i),10,50,50,createGameBoard.gameLevel));
+        enemySpace.push(new enemyShip('enemyship.png',10+ (30*i),10,50,50,createGameBoard.gameLevel));
     }
     for (let i=0;i<createGameBoard.baseEnemyShip;i++){
         enemySpace[i].createObj();
@@ -148,20 +148,24 @@ function updateProgram() {
     //makeEnemyShip();
     gameOver();
 
-    enemySpace[0].randomMove();
-    enemySpace[0].createObj();
-    for (let i=0 ; i< gun.length ; i++){
-        if(enemySpace[0].collisionOtherObject(gun[i]) === false){
-            if(enemySpace[0].stable == 0){
-                enemySpace[0].removeEnemyShip();
-                enemyGun.clearGun();
-            }else{
-                enemySpace[0].stable--;
-            }
-            gun[i].clearGun();
+
+    for (let i=0 ; i<enemySpace.length;i++){
+        enemySpace[i].randomMove();
+        enemySpace[i].createObj();
+    }
+    for(let j=0;j<enemySpace.length;j++){
+        for (let i=0 ; i< gun.length ; i++){
+                if(enemySpace[j].collisionOtherObject(gun[i]) === false){
+                    if(enemySpace[j].stable == 0){
+                        enemySpace[j].removeEnemyShip();
+                        enemyGun.clearGun();
+                    }else{
+                        enemySpace[j].stable--;
+                    }
+                    gun[i].clearGun();
+                }
         }
     }
-
 
     enemyGun.createObj();
     enemyGun.gunDown(enemySpace[0]);
@@ -169,6 +173,7 @@ function updateProgram() {
     if(myShip.collisionOtherObject(enemyGun) == false){
         myShip.clearObj();
         enemyGun.clearGun();
+        gameOverText()
     }
 
     //createGameBoard.objPerSecond++;
