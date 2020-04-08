@@ -221,9 +221,50 @@ let lv3= document.getElementById("lv3");
 let lv4= document.getElementById("lv4");
 let lv5= document.getElementById("lv5");
 let lv6= document.getElementById("lv6");
+let reload_page=document.getElementById("reload");
+createGameBoard.displayDefaultCanvas();
+
+
+reload_page.onclick=function(){
+    window.location.reload();
+}
 
 lv1.onclick=function(){
     this.blur();
+    createGameBoard.gameLevel=1;
+    startProgram();
+
+};
+
+
+
+lv2.onclick=function(){
+    this.blur();
+        createGameBoard.gameLevel=2;
+        startProgram();
+
+};
+lv3.onclick=function(){
+    this.blur();
+
     createGameBoard.gameLevel=3;
     startProgram();
-}
+};
+lv4.onclick=function(){
+    this.blur();
+
+    createGameBoard.gameLevel=4;
+    startProgram();
+};
+lv5.onclick=function(){
+    this.blur();
+
+    createGameBoard.gameLevel=5;
+    startProgram();
+};
+lv6.onclick=function(){
+    this.blur();
+
+    createGameBoard.gameLevel=6;
+    startProgram();
+};

@@ -12,9 +12,13 @@ let createGameBoard= {
         this.myShipSpeed=1;
         this.objPerSecond=20;
         this.gun_quantity=3;
-        if (createGameBoard.gameLevel==3){
-            this.baseEnemyShip= 4;
-        }else{
+        if (createGameBoard.gameLevel===1 || createGameBoard.gameLevel===2){
+            this.baseEnemyShip= 1;
+        }else if(createGameBoard.gameLevel===3 || createGameBoard.gameLevel===4){
+            this.baseEnemyShip=2;
+        }else if(createGameBoard.gameLevel===5){
+            this.baseEnemyShip=3;
+        }else if(createGameBoard.gameLevel===6){
             this.baseEnemyShip=4;
         }
 
@@ -23,6 +27,17 @@ let createGameBoard= {
         this.interval= setInterval(updateProgram,20);  // set time out update cho screen;
         this.keyBoardEvent();
 
+    },
+    removeCanvas(){
+       this.canvas.width=0;
+       this.canvas.height=0;
+    }
+    ,
+    displayDefaultCanvas(){
+        this.canvas.width=720;
+        this.canvas.height=700;
+        this.context=this.canvas.getContext("2d");
+        this.main.appendChild(this.canvas);
     },
     clearCanvas(){
         this.context.clearRect(0,0,this.canvas.width,this.canvas.height);
