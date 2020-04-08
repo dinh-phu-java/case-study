@@ -86,9 +86,12 @@ function displayGunQuantity(){
     ctx.fillText("Game Level: "+createGameBoard.gameLevel,2,createGameBoard.canvas.height - 30);
     ctx.fillStyle="red";
     ctx.font="14px Arial bold";
-    ctx.fillText("Heart 1: "+(enemySpace[0].stable+1),2,12);
-    ctx.fillText("Heart 2: "+(enemySpace[1].stable+1),2,32);
-    ctx.stroke();
+    //ctx.fillText("Heart 2: "+(enemySpace[1].stable+1),2,32);
+    for (let i=0;i<createGameBoard.baseEnemyShip;i++){
+        ctx.fillText("Heart "+ (i+1)+" :" +(enemySpace[i].stable+1),2,(17 *i) + 12 );
+        ctx.stroke();
+    }
+
 }
 function makeMultiGun(){
     for (let i = 0; i < gun.length; i++) {
@@ -125,6 +128,7 @@ function gameOverText(str,x,y){
 function destroyObstacle(){
     for(let i=0;i<theObstacles.length;i++){
         for(let j=0;j<gun.length;j++){
+
             if(theObstacles[i].collisionOtherObject(gun[j]) ===false){
 
                 if(theObstacles[i].stable  > 1){
@@ -136,6 +140,7 @@ function destroyObstacle(){
                 gun[j].clearGun();
             }
         }
+
     }
 }
 function updateProgram() {
@@ -169,7 +174,7 @@ function updateProgram() {
     for(let j=0;j<enemySpace.length;j++){
         for (let i=0 ; i< gun.length ; i++){
                 if(enemySpace[j].collisionOtherObject(gun[i]) === false){
-                    if(enemySpace[j].stable == 0){
+                    if(enemySpace[j].stable === 0){
                         enemySpace[j].removeEnemyShip();
                        // gun[i].clearGun();
                         enemyGun[j].clearGun();
@@ -208,6 +213,17 @@ function updateProgram() {
 
 }
 
-window.onload = startProgram();
+//window.onload = startProgram();
 
+let lv1= document.getElementById("lv1");
+let lv2= document.getElementById("lv2");
+let lv3= document.getElementById("lv3");
+let lv4= document.getElementById("lv4");
+let lv5= document.getElementById("lv5");
+let lv6= document.getElementById("lv6");
 
+lv1.onclick=function(){
+    this.blur();
+    createGameBoard.gameLevel=3;
+    startProgram();
+}
