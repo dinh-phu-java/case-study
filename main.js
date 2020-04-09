@@ -149,6 +149,53 @@ function destroyObstacle(){
 
     }
 }
+
+function enemySpaceMove(){
+    for (let i=0 ; i<enemySpace.length;i++){
+        enemySpace[i].randomMove();
+        enemySpace[i].createObj();
+    }
+}
+function enemyDestroy(){
+    for(let j=0;j<enemySpace.length;j++){
+        for (let i=0 ; i< gun.length ; i++){
+            if(enemySpace[j].collisionOtherObject(gun[i]) === false){
+                if(enemySpace[j].stable === 0){
+                    enemySpace[j].removeEnemyShip();
+                    // gun[i].clearGun();
+                    enemyGun[j].clearGun();
+                    createGameBoard.baseEnemyShip--;
+                }else{
+                    enemySpace[j].stable--;
+                }
+                gun[i].clearGun();
+            }
+        }
+    }
+}
+function enemySpaceShootGun(){
+    for (let i =0;i<enemySpace.length;i++){
+        enemyGun[i].createObj();
+        enemyGun[i].gunDown(enemySpace[i]);
+    }
+}
+function myShipCollapse(){
+    for (let i=0;i<enemyGun.length;i++){
+        if(myShip.collisionOtherObject(enemyGun[i]) == false){
+            myShip.clearObj();
+            enemyGun[i].clearGun();
+            gameOverText("Game Over",(createGameBoard.canvas.width/2) -250,100);
+        }
+    }
+}
+function winGame(){
+    if (createGameBoard.baseEnemyShip == 0){
+
+        gameOverText("You Win!",(createGameBoard.canvas.width/2) -250 ,createGameBoard.canvas.height/2);
+
+    }
+};
+
 function updateProgram() {
     createGameBoard.clearCanvas(); // xóa image cũ để update image mới
 
@@ -171,49 +218,19 @@ function updateProgram() {
     //makeEnemyShip();
     gameOver();
 
+    enemySpaceMove();
 
-    for (let i=0 ; i<enemySpace.length;i++){
-        enemySpace[i].randomMove();
-        enemySpace[i].createObj();
-    }
+    enemyDestroy();
 
-    for(let j=0;j<enemySpace.length;j++){
-        for (let i=0 ; i< gun.length ; i++){
-                if(enemySpace[j].collisionOtherObject(gun[i]) === false){
-                    if(enemySpace[j].stable === 0){
-                        enemySpace[j].removeEnemyShip();
-                       // gun[i].clearGun();
-                        enemyGun[j].clearGun();
-                        createGameBoard.baseEnemyShip--;
-                    }else{
-                        enemySpace[j].stable--;
-                    }
-                    gun[i].clearGun();
-                }
-        }
-    }
 
    // enemyGun.createObj();
     //enemyGun.gunDown(enemySpace[0]);
 
-    for (let i =0;i<enemySpace.length;i++){
-       enemyGun[i].createObj();
-       enemyGun[i].gunDown(enemySpace[i]);
-    }
 
-    for (let i=0;i<enemyGun.length;i++){
-        if(myShip.collisionOtherObject(enemyGun[i]) == false){
-            myShip.clearObj();
-            enemyGun[i].clearGun();
-            gameOverText("Game Over",(createGameBoard.canvas.width/2) -250,100);
-        }
-    }
+    myShipCollapse();
 
-    if (createGameBoard.baseEnemyShip == 0){
 
-        gameOverText("You Win!",(createGameBoard.canvas.width/2) -250 ,createGameBoard.canvas.height/2);
-
-    }
+    winGame();
 
     //createGameBoard.objPerSecond++;
 
