@@ -1,6 +1,7 @@
-let spaceObj = function(img_src,x,y,width,height){
+let spaceObj = function(img_src,x,y,width,height,stable){
     this.width=width;
     this.height=height;
+    this.stable=stable;
     this.x=x;
     this.y=y;
     this.speedX=0;

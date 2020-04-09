@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bai 2</title>
+</head>
+
+
+<body>
+<p><span id="go" class="georgia">go</span> Italian</p>
+<p>
+    <button id="on" type="button" value="turn on">turn on</button>
+    <button id="off" type="button" value="turn off">turn off</button>
+</p>
+
+<script>
+    var text = document.getElementById("go");
+    var on = document.getElementById("on");
+    var off = document.getElementById("off");
+
+    var fontChange = function() {
+        switch(text.className) {
+            case "georgia":
+                text.className = "arial";
+                break;
+            case "arial":
+                text.className = "courierNew";
+                break;
+            case "courierNew":
+                text.className = "georgia";
+                break;
+        }
+    };
+
+    on.onclick = function() {
+        setInterval(fontChange, 500);
+    };
+
+    off.onclick = function() {
+        clearInterval(fontChange);
+    };
+</script>
+</body>
+</html>
